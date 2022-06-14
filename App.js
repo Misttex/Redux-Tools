@@ -1,11 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import {Counter} from "./Counter";
+import counterReducer from "./CounterSlice";
 
 export default function App() {
+  const store = configureStore({
+    reducer: {
+      counter: counterReducer,
+    },
+  })
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Provider store={store}>
+        <Counter/>
+      </Provider>
     </View>
   );
 }
